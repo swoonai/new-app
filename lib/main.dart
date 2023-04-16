@@ -1,111 +1,70 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:streamit_flutter/local/AppLocalizations.dart';
-import 'package:streamit_flutter/local/BaseLanguage.dart';
-import 'package:streamit_flutter/screens/HomeScreen.dart';
-import 'package:streamit_flutter/screens/SplashScreen.dart';
-import 'package:streamit_flutter/store/AppStore.dart';
-import 'package:streamit_flutter/utils/AppTheme.dart';
-import 'package:streamit_flutter/utils/AppWidgets.dart';
-import 'package:streamit_flutter/utils/Constants.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
-AppStore appStore = AppStore();
-int mAPIQueueCount = 0;
-bool mIsLoggedIn = false;
-int? mUserId;
-int adShowCount = 0;
-BaseLanguage? language;
-
-bool isMiniPlayer = false;
-String miniPlayerUrl = '';
-
-YoutubePlayerController? youtubePlayerController;
+import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/internationalization.dart';
+import 'flutter_flow/nav/nav.dart';
+import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await initialize(aLocaleLanguageList: languageList());
-
-  Firebase.initializeApp().then((value) {
-    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-    MobileAds.instance.initialize();
-  }).catchError((e) {
-    log('Error: ${e.toString()}');
-  });
-
-  await appStore.setLanguage(getStringAsync(SELECTED_LANGUAGE_CODE, defaultValue: defaultLanguage));
-
-  textPrimaryColorGlobal = Colors.white;
-  textSecondaryColorGlobal = Colors.grey.shade500;
-
-  mUserId = getIntAsync(USER_ID);
-  appStore.setUserProfile(getStringAsync(USER_PROFILE));
-  appStore.setFirstName(getStringAsync(NAME));
-  appStore.setLastName(getStringAsync(LAST_NAME));
-  appStore.setLogging(getBoolAsync(isLoggedIn));
-  appStore.setUserProfile(getStringAsync(USER_PROFILE));
-
-  if (isMobile) {
-    MobileAds.instance.initialize();
-
-
-    await OneSignal.shared.setAppId(mOneSignalAPPKey);
-    OneSignal.shared.consentGranted(true);
-    OneSignal.shared.promptUserForPushNotificationPermission();
-  }
+  await FlutterFlowTheme.initialize();
 
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+
+  late AppStateNotifier _appStateNotifier;
+  late GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _appStateNotifier = AppStateNotifier();
+    _router = createRouter(_appStateNotifier);
+  }
+
+  void setLocale(String language) {
+    setState(() => _locale = createLocale(language));
+  }
+
+  void setThemeMode(ThemeMode mode) => setState(() {
+        _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
+      });
+
   @override
   Widget build(BuildContext context) {
-    setOrientationPortrait();
-    // return GetMaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   theme: AppTheme.darkTheme,
-    //   darkTheme: AppTheme.darkTheme,
-    //   initialBinding: SignInBinding(),
-    //   home: SignInScreen(),
-    //   builder: scrollBehaviour(),
-    //   supportedLocales: LanguageDataModel.languageLocales(),
-    //   localizationsDelegates: [
-    //     AppLocalizations(),
-    //     GlobalMaterialLocalizations.delegate,
-    //     GlobalWidgetsLocalizations.delegate,
-    //     GlobalCupertinoLocalizations.delegate,
-    //   ],
-    //   localeResolutionCallback: (locale, supportedLocales) => locale,
-    //   locale: Locale(appStore.selectedLanguageCode),
-    // );
-
-    return Observer(
-      builder: (_) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.darkTheme,
-        darkTheme: AppTheme.darkTheme,
-        home: SplashScreen(),
-        routes: <String, WidgetBuilder>{
-          HomeScreen.tag: (BuildContext context) => HomeScreen(),
-        },
-        builder: scrollBehaviour(),
-        supportedLocales: LanguageDataModel.languageLocales(),
-        localizationsDelegates: [
-          AppLocalizations(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) => locale,
-        locale: Locale(appStore.selectedLanguageCode),
-      ),
+    return MaterialApp.router(
+      title: 'Elizabeth April',
+      localizationsDelegates: [
+        FFLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale,
+      supportedLocales: const [Locale('en', '')],
+      theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: _themeMode,
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
   }
 }
