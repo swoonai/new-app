@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "24891214351",
+    "project_id": "streamit-ae5a1",
+    "storage_bucket": "streamit-ae5a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24891214351:android:f9a6e8a9ebbd488a67717a",
+        "android_client_info": {
+          "package_name": "com.iqonic.streamit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24891214351-evf2u9017e51ftu529vuoploo1c9g6kk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWNvYRlb73wucjlDIGxz3gaeCuMv33kx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24891214351-evf2u9017e51ftu529vuoploo1c9g6kk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

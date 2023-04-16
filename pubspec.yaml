@@ -1,0 +1,133 @@
+name: streamit_flutter
+description: A new Flutter application.
+version: 5.1.1+25
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Required
+  cupertino_icons: ^1.0.5
+  intl: ^0.17.0
+  nb_utils: ^5.0.8
+  package_info: ^2.0.2
+  cached_network_image: ^3.2.2
+  flutter_vector_icons: ^2.0.0
+
+  # Html
+  html: ^0.15.1
+  flutter_widget_from_html: ^0.10.0
+
+  # Voice Search
+  speech_to_text: ^6.1.0
+
+  # API call
+  http: ^0.13.5
+
+  # State Management
+  mobx: ^2.1.3
+  flutter_mobx: ^2.0.6+5
+
+  # Font
+  google_fonts: ^4.0.3
+
+  # Launch url
+  url_launcher: ^6.1.6
+
+  # Rating
+  flutter_rating_bar: ^4.0.1
+
+  # Ads
+  google_mobile_ads: ^2.3.0
+
+  # Notification
+  onesignal_flutter: ^3.4.2
+
+  # Image selection
+  image_picker: ^0.8.7
+
+  # Video player
+  youtube_player_flutter: ^8.1.1
+  video_player: ^2.4.7
+
+  # Web-views
+  webview_flutter: ^4.0.7
+  flutter_custom_tabs: ^1.0.4
+
+  # Animation
+  lottie: ^2.0.0
+
+  # File Download
+  internet_file: ^1.2.0
+  permission_handler: ^10.2.0
+  device_info_plus: ^8.0.0
+
+  # Local storage path
+  path_provider: ^2.0.11
+
+  # Text
+  auto_size_text: ^3.0.0
+
+  # Firebase remote config
+  firebase_core: ^2.3.0
+  firebase_remote_config: ^4.0.0
+  firebase_crashlytics: ^3.0.9
+  fluttertoast: ^8.2.1
+
+  # Video casting
+  cast: ^1.1.1
+
+  # Prevent Screenshot and Screen record
+  flutter_windowmanager: ^0.2.0
+
+  # shimmer effect
+  shimmer: ^2.0.0
+
+  stream_transform: ^2.1.0
+
+  # Video player
+  flutter_vlc_player: ^7.2.0
+
+  flutter_localizations:
+    sdk: flutter
+  flutter_appauth: ^4.2.1
+  package_config: ^2.1.0
+  get: ^4.6.5
+  otp_text_field: ^1.1.3
+  flutter_svg: ^2.0.5
+  #audio_session: ^0.1.13
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mobx_codegen: ^2.1.1
+  build_runner: ^2.3.2
+  #flutter packages pub run build_runner build
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/lottie/
+    - assets/gif/
+    - assets/images/
+    - assets/images/flag/
+    - assets/images/svg/
+    - assets/images/png/
+    - .env
+
+  fonts:
+    - family: RobotoCondensed
+      fonts:
+        - asset: assets/fonts/RobotoCondensed-Light.ttf
+        - asset: assets/fonts/RobotoCondensed-Regular.ttf
+    - family: RobotoCondensed
+      fonts:
+        - asset: assets/fonts/Roboto-Thin.ttf
+          weight: 100
+
